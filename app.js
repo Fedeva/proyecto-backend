@@ -11,7 +11,7 @@ const md5 = require('md5')
 // metodo para recibir datos = POST
 
 app.use(bodyParser.json())  // libreria que se agrega a express para darle otras funcionalidades. convierte toda la info en un objeto json
-app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  no
+app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  
 
 
 app.get('/', function (req, res) {                                 // empezamos a configurar la aplicacion
