@@ -1,6 +1,6 @@
 const express = require('express') // traemos express y creamos el modulo que se encarga de crear rutas y el manejo de respuesta
 const app = express()  //encendemos express lo ponemos a funcionar
-const path = require('path')
+const path = require('path') // para dividir las carpetas(uso universal)
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 const md5 = require('md5')
@@ -11,10 +11,10 @@ const md5 = require('md5')
 // metodo para recibir datos = POST
 
 app.use(bodyParser.json())  // libreria que se agrega a express para darle otras funcionalidades. convierte toda la info en un objeto json
-app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  no
+app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  
 
 
-app.get('/', function (req, res) {                                 // empezamos a configurar la aplicacion
+app.get('/', function (req, res) {                                 //  (ruta raiz)empezamos a configurar la aplicacion
    // '/' = rutas , busco con el navegador y hace lo que dice la funcion
      res.send ('Bienvenido a backend')                             //           ''
 })                                                                 
@@ -29,9 +29,12 @@ app.get('/register', function (req, res) {                          //          
 
 })
 
-app.get('/confirm', function (req, res){
+app.get('/confirm', function (req, res){                           //            ''
   res.send('confirmado!')
 }) 
+
+
+
 
 app.post('/register', async function (req, res) {                           //           ''
          // async= funcion asincronica
