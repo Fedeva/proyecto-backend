@@ -1,30 +1,33 @@
 const {Schema, Types} = require('mongoose')
+const md5 = require('md5')
+
 
 module.exports = new Schema({
    
-    _id : Type.ObjectId,
+    //_id : Types.ObjectId,
    
     email : {
-           Type : String,
+           type : String,
            required : true
   }, 
     password : {
-        Type : String,
+        type : String,
         required : true
   },
     registrationDate : {
-        Type : Date,
+        type : Date,
         default : Date.now
   },
     confirmationDate : Date,
    
     confirmetaionToken : {
-        Type : String,
+        type : String,
         required : true,
         default : function(){
-         return '...'
+         return md5(Date.now())
      }
    },
 
 })
 
+  

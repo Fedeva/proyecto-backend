@@ -2,8 +2,11 @@ const {Schema, Types} = require('mongoose')
 
 module.exports = new Schema({
    
-    _id : Type.ObjectId,
-
+   // _id : type.ObjectId,
+   userId :{
+    type: Types.ObjectId,
+    ref : 'Address'
+},
     country : String,
     
     street : String,
@@ -12,6 +15,5 @@ module.exports = new Schema({
 
     zipCode: String,
 
-    userId : User
 
 })

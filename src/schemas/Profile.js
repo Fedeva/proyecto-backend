@@ -2,18 +2,21 @@ const {Schema, Types} = require('mongoose')
 
 module.exports = new Schema ({
 
-    _id : Type.ObjectId,
+    //_id : types.ObjectId,
 
-    userId : User,
+    userId :{
+        type: Types.ObjectId,
+        ref : 'User'
+    },
 
     firstName : {
-        Type : String,
+        type : String,
         required : true
     },
 
     lastName : {
-        Type : String,
+        type : String,
         required : true
     },
-    birthDate : Date|String
+    birthDate : Date
 })

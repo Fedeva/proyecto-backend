@@ -2,15 +2,20 @@ const {Schema, Types} = require('mongoose')
 
 module.exports = new Schema({
    
-    _id : Type.ObjectId,
+   // _id : type.ObjectId,
   
+   userId :{
+    type: Types.ObjectId,
+    ref : 'comments'
+},
+
     body : {
-        Type : String,
+        type : String,
         required : true
     },
+    
     creationDate : Date,
 
-    userId : User,
    
     dislikeCount : Number,
 
