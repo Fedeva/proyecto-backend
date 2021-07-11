@@ -1,21 +1,39 @@
 const mongoose = require('mongoose'); 
-const UserSchema = require('../src/schemas/User');
-const ProfileSchema = require('../src/schemas/Profile'); 
-const PhonesSchema = require('../src/schemas/Phones');
-const commentsSchema = require('../src/schemas/comments');
-const AddressSchema = require('../src/schemas/Address');
-const Address = mongoose.model('Address', AddressSchema);
-const comments = mongoose.model('comments', commentsSchema);
-const Phones = mongoose.model('Phones',PhonesSchema);
-const User = mongoose.model('User' , UserSchema) ;
-const Profile = mongoose.model('Profile',ProfileSchema )
+const User= require('../src/schemas/User');
+const Profile= require('../src/schemas/Profile'); 
+const Phones = require('../src/schemas/Phones');
+const comments = require('../src/schemas/comments');
+const Address= require('../src/schemas/Address');
 
-
+ 
 module.exports ={
+   
+    findUsers(){
+//**metodo estatico o metodo de clase
+        //User.find().then(users =>{
+       //        console.log(users)
+       //    }).catch(err => {
+       //         console.log(err)
+       //    })
+        // let user = new User({email : "fede@gmail.com"})   // **despues de definir el metodo de busqueda,
+                                                           // **podemos buscar atraves de la  instancia
+         //user.findByEmail()                                   
+           //     .then(u => console.log(u))
+           //     .catch(err => console.log(err))
+           //      },                                       // **       ''        ''              
 
+          User.findByToken("1aaa659e7005fd2a7546c4ecf0bead7b")
+                .then(u => console.log(u))
+                .catch(err => console.log(err))
+
+    },           
+   
+   
     createUser() {
+           // new/upDate/delete = instancia
+
 let newUser = new User ({email : "cinco@gmail.com", password : "hehehe" }) 
-            
+            //metodo de instancia
            newUser.save()
             .then(user => {
                 console.log('el id del usuario es '+ user._id) 
@@ -82,3 +100,4 @@ let newUser = new User ({email : "cinco@gmail.com", password : "hehehe" })
             }
 
             
+    

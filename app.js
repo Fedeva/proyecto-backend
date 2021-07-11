@@ -4,7 +4,7 @@ const path = require('path') // para dividir las carpetas(uso universal)
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 const md5 = require('md5')
-const user =  require('../src/schemas/User')
+const User = require('./src/schemas/User')
 
 // req (request): recibir o leer informacion viene de esta peticion
 // res (response): escribo la respuesta a esa peticion
@@ -29,9 +29,9 @@ app.get('/register', function (req, res) {                          //          
         res.sendFile(file)
 
 })
-
+//http://localhost:4000/confirm?token=740c0c2e1acaf4e405e37bdcb8bbf07a (ejemplo)
 app.get('/confirm', function (req, res){                           //            ''
-  res.send('confirmado!')
+  res.send(req.query)
 }) 
 
 
@@ -39,15 +39,15 @@ app.get('/confirm', function (req, res){                           //           
 
 app.post('/register', async function (req, res) {                           //           ''
          // async= funcion asincronica
-        let user = new User(req.body)
-// body: es toda la info del formulario"el email y password"
-    
-      user.save().then(async u => {
-
-      //let token = md5(req.body.email + Date.now())
-      // console.log(token)
         
-       let testAccount = await nodemailer.createTestAccount();
+      
+
+       let user = new User(req.body) //*creo la info de usuario
+// (body: es toda la info del formulario"el email y password")
+    
+        user.save().then(async u => { //* guardo esa info
+      
+        let testAccount = await nodemailer.createTestAccount(); //**envio  email */
       
         let transporter = nodemailer.createTransport({
           host: "smtp.ethereal.email",
@@ -76,18 +76,17 @@ app.post('/register', async function (req, res) {                           //  
            // siempre la etiqueta <a> es un GET
         console.log("Message sent: %s", info.messageId);
 
+        res.send(nodemailer.getTestMessageUrl(info))  
         
-        res.send(nodemailer.getTestMessageUrl(info))
       
       }). catch(err=> {
-        console.log(err)
- })        
+              console.log(err)
+      })        
    
-         
-         // body: cuerpo de la peticion, es la info q va junto con la peticion. 
+     })     // body: cuerpo de la peticion, es la info q va junto con la peticion. 
          //en este caso que viene con el form
         // body se usa solo con post!
-    })
+    
 
 //http://localhost:4000/
 app.listen(4000)

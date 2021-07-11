@@ -40,5 +40,5 @@ functions.createProfile()
 functions.createPhones()
 functions.createComments()
 functions.createAddress()
-
+functions.findUsers()
 

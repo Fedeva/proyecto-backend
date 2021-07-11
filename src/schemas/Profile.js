@@ -1,11 +1,11 @@
-const {Schema, Types} = require('mongoose')
+const mongoose = require('mongoose')
 
-module.exports = new Schema ({
+let Profile = new mongoose.Schema ({
 
     //_id : types.ObjectId,
 
     userId :{
-        type: Types.ObjectId,
+        type: mongoose.ObjectId,
         ref : 'User'
     },
 
@@ -20,3 +20,5 @@ module.exports = new Schema ({
     },
     birthDate : Date
 })
+
+module.exports = mongoose.model('Profile',Profile)

@@ -1,11 +1,11 @@
-const {Schema, Types} = require('mongoose')
+const mongoose = require('mongoose')
 
-module.exports = new Schema({
+let comments= new mongoose.Schema({
    
    // _id : type.ObjectId,
   
    userId :{
-    type: Types.ObjectId,
+    type: mongoose.ObjectId,
     ref : 'comments'
 },
 
@@ -22,3 +22,5 @@ module.exports = new Schema({
     likesCount : Number,
 
 })
+
+module.exports = mongoose.model('comments', comments)
