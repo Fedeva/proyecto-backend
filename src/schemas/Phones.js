@@ -6,7 +6,7 @@ let Phones= new mongoose.Schema({
 
     userId :{
         type: mongoose.ObjectId,
-        ref : 'Phones'
+        ref : 'User'
     },
 
     countryCode : String,

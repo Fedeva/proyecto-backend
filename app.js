@@ -1,11 +1,12 @@
 const express = require('express') // traemos express y creamos el modulo que se encarga de crear rutas y el manejo de respuesta
 const app = express()  //encendemos express lo ponemos a funcionar
-const path = require('path') // para dividir las carpetas(uso universal)
 const bodyParser = require('body-parser')
-const nodemailer = require('nodemailer')
-const md5 = require('md5')
-const User = require('./src/schemas/User')
-
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/itmaster-backend', {useNewUrlParser: true, useUnifiedTopology: true});
+const authRouter = require('./src/routes/auth')
+const categoriesRouter = require('./src/routes/categories')
+const addressesRouter = require('./src/routes/addresses')
+const profilesRouter = require('./src/routes/profiles')
 // req (request): recibir o leer informacion viene de esta peticion
 // res (response): escribo la respuesta a esa peticion
 // metodo para devolver un dato = GET
@@ -14,79 +15,17 @@ const User = require('./src/schemas/User')
 app.use(bodyParser.json())  // libreria que se agrega a express para darle otras funcionalidades. convierte toda la info en un objeto json
 app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  
 
+app.use('/auth', authRouter)//añade carpetas por afuera
+app.use('/categories',categoriesRouter)
+app.use('/addresses',addressesRouter)
+app.use('/profiles',profilesRouter)
+
 
 app.get('/', function (req, res) {                                 //  (ruta raiz)empezamos a configurar la aplicacion
    // '/' = rutas , busco con el navegador y hace lo que dice la funcion
      res.send ('Bienvenido a backend')                             //           ''
 })                                                                 
- 
-app.get('/register', function (req, res) {                          //           ''
- 
-  // devolver un formulario html
-   let file = path.resolve('src','views','register.html')            //           ''
-    
-
-        res.sendFile(file)
-
-})
-//http://localhost:4000/confirm?token=740c0c2e1acaf4e405e37bdcb8bbf07a (ejemplo)
-app.get('/confirm', function (req, res){                           //            ''
-  res.send(req.query)
-}) 
-
-
-
-
-app.post('/register', async function (req, res) {                           //           ''
-         // async= funcion asincronica
-        
-      
-
-       let user = new User(req.body) //*creo la info de usuario
-// (body: es toda la info del formulario"el email y password")
-    
-        user.save().then(async u => { //* guardo esa info
-      
-        let testAccount = await nodemailer.createTestAccount(); //**envio  email */
-      
-        let transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false,
-          auth: {
-            user: testAccount.user, 
-            pass: testAccount.pass,
-          },
-        });
-      
-        let info = await transporter.sendMail({
-          from: '"Backend 👻" <no-reply@example.com>', // sender address
-          to: "bar@example.com, baz@example.com", // list of receivers
-          subject: "Has completado tu registro exitosamente ✔", // Subject line
-          text: "Bienvenido a nuestro sistema", // plain text body
-          html:` 
-                 <a href="http://localhost:4000/confirm?token=${u.confirmationToken}">
-                  
-                    confirmar cuenta
-                
-                </a>
-               
-                <b>Bienvenido a nuestro sistema</b>`, // html body
-        });
-           // siempre la etiqueta <a> es un GET
-        console.log("Message sent: %s", info.messageId);
-
-        res.send(nodemailer.getTestMessageUrl(info))  
-        
-      
-      }). catch(err=> {
-              console.log(err)
-      })        
-   
-     })     // body: cuerpo de la peticion, es la info q va junto con la peticion. 
-         //en este caso que viene con el form
-        // body se usa solo con post!
-    
+     
 
 //http://localhost:4000/
 app.listen(4000)
