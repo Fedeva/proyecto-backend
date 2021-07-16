@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "md5": "^2.3.0",
     "mongoose": "^5.12.14",
-    "nodemailer": "^6.6.2"
+    "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.12"
   }
 }

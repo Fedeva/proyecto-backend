@@ -21,8 +21,10 @@ const Category = require('../schemas/category')
 
    router.get('/:id', function(req, res){
      Category
-       .findById(req.params.id)
-       .then(function (category){
+       
+      .findById(req.params._id)
+      
+      .then(function (category){
         res.send(category)
 
      })
@@ -55,10 +57,10 @@ const Category = require('../schemas/category')
         //enviar mensaje de confirmacion
 
         Category
-           .findByIdAndUpdate(req.params.id,req.body)
+           .findByIdAndUpdate(req.params._id, req.body)
            
           .then(function (){
-              res.send({message : "deleted"})
+              res.send({message : "updated"})
 
            })
            .catch(function (){
@@ -71,12 +73,14 @@ const Category = require('../schemas/category')
     router.delete('/:id', function(req,res){
         //enviar mensaje de confirmacion
 
-        Category.deleteOne(req.params.id)        //*modelo.metodo()
+        Category
+        .deleteOne({_id : req.params.id})        //*modelo.metodo()
         .then(function (){
             res.send({message : "deleted"})
  
         })
-         .catch(function (){
+         .catch(function (err){
+            console.log(err)
             res.send({message : "error"})
 
          })

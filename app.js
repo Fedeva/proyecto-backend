@@ -7,6 +7,8 @@ const authRouter = require('./src/routes/auth')
 const categoriesRouter = require('./src/routes/categories')
 const addressesRouter = require('./src/routes/addresses')
 const profilesRouter = require('./src/routes/profiles')
+const productsRouter = require('./src/routes/products')
+
 // req (request): recibir o leer informacion viene de esta peticion
 // res (response): escribo la respuesta a esa peticion
 // metodo para devolver un dato = GET
@@ -19,7 +21,7 @@ app.use('/auth', authRouter)//añade carpetas por afuera
 app.use('/categories',categoriesRouter)
 app.use('/addresses',addressesRouter)
 app.use('/profiles',profilesRouter)
-
+app.use('/products',productsRouter)
 
 app.get('/', function (req, res) {                                 //  (ruta raiz)empezamos a configurar la aplicacion
    // '/' = rutas , busco con el navegador y hace lo que dice la funcion

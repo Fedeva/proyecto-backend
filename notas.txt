@@ -1,0 +1,46 @@
+db.products.insertOne({
+    "title":"Celular Samsung - Oferta!!!",
+    "descripcion": "Celular Samsung modelo 2021 8K Conexion 5G NFC tarjeta de memoria",
+    "price": 123456.99,
+    "stock":23,
+    "sold_count":45,
+    "model":"ABC123",
+     "brand" : "Samsung",
+     "seller_id" : 1234,
+     "views_count" : 0,
+     "likes_count" : 0
+})
+
+operadores :
+
+< (menor)                  $lt
+> (mayor)                  $gt
+<= (menor igual)           $lte
+>= (mayor igual)           $gte
+== (igual)                 $eq
+!= (distinto o no igual)   $ne
+
+
+db.products.find({               <=== para buscar algo
+    brand : "Samsung",
+    price : {
+        "$gte : 100000"
+    }
+})
+
+
+db.products.find({               
+    brand : "Samsung",
+    "$and" : [
+    {
+       price : {
+           "$gte : 100000"
+         }
+    },
+    {
+        price : {
+             "$lte" : 200000
+        }
+    }   
+  ],
+})  

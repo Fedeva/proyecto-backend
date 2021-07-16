@@ -4,7 +4,7 @@ const Profile= require('../src/schemas/Profile');
 const Phones = require('../src/schemas/Phones');
 const comments = require('../src/schemas/comments');
 const Address= require('../src/schemas/Address');
-
+const Category = require('../src/schemas/Category');
  
 module.exports ={
    
