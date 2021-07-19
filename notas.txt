@@ -44,3 +44,15 @@ db.products.find({
     }   
   ],
 })  
+
+
+FRONTEND
+
+Crear un proyecto en react
+crear una carpeta aparte del proyecto backend
+npx create-react-app  proyecto-frontend
+
+Instalar react-router
+npm i react-router-dom
+
+crear un componente que tenga el formularios de productos

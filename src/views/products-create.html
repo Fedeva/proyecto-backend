@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Alta de producto</h1>
+
+    <form action="/products" method="post" novalidate autocomplete="off">
+        
+        <div>
+            <label for="title">Title</label>
+            <input type="text" name="title">
+        </div>
+
+
+        <div>
+            <label for="">Description</label>
+            <textarea name="Description"></textarea>
+        </div>
+      
+      <div>
+        <label for="price">Price</label>
+        <input type="number" name="price" min="0">
+    </div>
+    
+    <div>
+        <label for="">Stock</label>
+        <input type="number" name="stock" min= "1">
+     </div>
+   
+    <div>
+        <label for="">Model</label>
+        <input type="text" name="model">
+    </div>
+   
+   
+
+      <div>
+          <label for="">Marca</label>
+          <select name="brand" >
+              <option value=""></option>
+              <option value="455">Fiat</option>
+              <option value="56">BMW</option>
+              <option value="564">Mercedez Benz</option>
+
+          </select>
+      </div>
+   
+    
+     <div>
+        <button>Enviar</button>
+      </div>
+
+     
+ </form>
+
+</body>
+</html>

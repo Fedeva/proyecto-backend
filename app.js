@@ -8,6 +8,9 @@ const categoriesRouter = require('./src/routes/categories')
 const addressesRouter = require('./src/routes/addresses')
 const profilesRouter = require('./src/routes/profiles')
 const productsRouter = require('./src/routes/products')
+const Product = require('./src/schemas/Product')
+
+
 
 // req (request): recibir o leer informacion viene de esta peticion
 // res (response): escribo la respuesta a esa peticion
@@ -17,17 +20,52 @@ const productsRouter = require('./src/routes/products')
 app.use(bodyParser.json())  // libreria que se agrega a express para darle otras funcionalidades. convierte toda la info en un objeto json
 app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  
 
-app.use('/auth', authRouter)//añade carpetas por afuera
-app.use('/categories',categoriesRouter)
-app.use('/addresses',addressesRouter)
-app.use('/profiles',profilesRouter)
-app.use('/products',productsRouter)
+
+//API REST = es  un URL donde intercambian datos mediante http
+app.use('/api/auth', authRouter)//añade carpetas por afuera
+app.use('/api/categories',categoriesRouter)
+app.use('/api/addresses',addressesRouter)
+app.use('/api/profiles',profilesRouter)
+app.use('/api/products',productsRouter)
 
 app.get('/', function (req, res) {                                 //  (ruta raiz)empezamos a configurar la aplicacion
    // '/' = rutas , busco con el navegador y hace lo que dice la funcion
      res.send ('Bienvenido a backend')                             //           ''
 })                                                                 
      
+
+  app.get('/products', function (req,res){
+         //listado de productos
+  })
+
+  app.get('/products/create', function (req,res){
+         //mostar formulario de alta de productos
+         res.sendFile(__dirname + '/src/views/products-create.html')
+  })
+
+  app.post('/products', function(req,res){
+        
+      
+
+    let schema = new Product ({
+         ...req.body,
+         seller_id : 22
+    })  
+       
+       schema.save()
+         .then(() => {
+          res.redirect('/products/create')
+       }).catch(err => {
+           console.log(err)
+           res.send({message:'error'})
+      })
+    })
+       
+        
+          //recibir datos del formulario
+          //guardar en la base de datos
+  
+  
 
 //http://localhost:4000/
 app.listen(4000)

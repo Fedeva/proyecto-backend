@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose')
 
 let Product = new Schema({
-    title : {
+     title : {
         type : String,
         required : true
     },
@@ -17,7 +17,7 @@ let Product = new Schema({
         default : 1
     },
     model : {
-        type : String
+        type : String,
     },
     brand : {
         type : String,
@@ -36,8 +36,7 @@ let Product = new Schema({
         default : 0
     }
 
-    },
-    {
+    }, {
     collection : "products"
 
     
