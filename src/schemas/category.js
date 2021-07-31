@@ -1,7 +1,11 @@
 const{Schema,Types,model} = require('mongoose')
 
 const Category = new Schema ({
-   
+     categoryId :{
+         required :false,
+         type : Types.ObjectId,
+         ref : 'category'
+     },
 
     name : {
         

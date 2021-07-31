@@ -1,5 +1,9 @@
 const express = require('express') // traemos express y creamos el modulo que se encarga de crear rutas y el manejo de respuesta
 const app = express()  //encendemos express lo ponemos a funcionar
+
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, {});
+
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/itmaster-backend', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -10,13 +14,15 @@ const profilesRouter = require('./src/routes/profiles')
 const productsRouter = require('./src/routes/products')
 const Product = require('./src/schemas/Product')
 
+const cors = require('cors')
+
 
 
 // req (request): recibir o leer informacion viene de esta peticion
 // res (response): escribo la respuesta a esa peticion
 // metodo para devolver un dato = GET
 // metodo para recibir datos = POST
-
+app.use(cors())
 app.use(bodyParser.json())  // libreria que se agrega a express para darle otras funcionalidades. convierte toda la info en un objeto json
 app.use(bodyParser.urlencoded({extended:false}))//   ''    ''  
 
@@ -44,7 +50,9 @@ app.get('/', function (req, res) {                                 //  (ruta rai
   })
 
   app.post('/products', function(req,res){
-        
+        //recibir datos del formulario
+          //guardar en la base de datos
+  
       
 
     let schema = new Product ({
@@ -54,20 +62,22 @@ app.get('/', function (req, res) {                                 //  (ruta rai
        
        schema.save()
          .then(() => {
-          res.redirect('/products/create')
+          res.status(201).send({message:'created'})
        }).catch(err => {
            console.log(err)
-           res.send({message:'error'})
+           res.status(422).send({menssage:err})
       })
     })
        
         
-          //recibir datos del formulario
-          //guardar en la base de datos
-  
-  
+    io.on("connection", socket => { 
+      console.log('alguien se conencto a traves de websockets')
+     });
+    
+  httpServer.listen(5000)
 
 //http://localhost:4000/
-app.listen(4000)
+app.listen(4001)
+
 
 
